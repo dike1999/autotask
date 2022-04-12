@@ -4,9 +4,10 @@
 # @Time  : 2020/5/1 23:24
 # @File  : automatic_clock.py
 
-工具说明：使用 Python3 + Selenium + ChromeDriver
 实现自动登陆疫情打卡页面并签到
+工具说明：使用 Python3 + Selenium + ChromeDriver
 执行方式: python3 automatic_clock.py [host] [user] [password] [database]
+使用linux定时任务: crontab -e
 """
 import datetime
 import sys
