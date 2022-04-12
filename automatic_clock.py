@@ -27,14 +27,18 @@ Life_XPath = "//*[@id='wjTA']/tbody/tr[4]/td[2]/div/select[5]"
 Family_XPath = "//*[@id='wjTA']/tbody/tr[4]/td[2]/div/select[6]"
 Submit_XPath = "/html/body/form/div[1]/table/tbody/tr/td[1]/input"
 
+
 # chrome浏览器启动配置
-chrome_options = Options()
-chrome_options.add_argument('--headless')
-chrome_options.add_argument('--disable-gpu')
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument('--disable-dev-shm-usage')
-chrome_options.add_experimental_option('useAutomationExtension', False)
-chrome_options.add_experimental_option("excludeSwitches", ['enable-automation'])
+def get_options():
+    chrome_options = Options()
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--disable-gpu')
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_experimental_option('useAutomationExtension', False)
+    chrome_options.add_experimental_option("excludeSwitches", ['enable-automation'])
+
+    return chrome_options
 
 
 def get_students(host, user, password, database):
@@ -49,6 +53,7 @@ def get_students(host, user, password, database):
     except Exception as e:
         now_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         do_send_mail('1138832931@qq.com', "{}\n数据库查询失败，任务终止\n错误信息: {}".format(now_time, e))
+
     return student_list
 
 
@@ -86,7 +91,7 @@ def do_sign():
 if __name__ == '__main__':
     sql_host, sql_user, sql_password, sql_database = sys.argv[1:5]
     students = get_students(sql_host, sql_user, sql_password, sql_database)
-    driver = webdriver.Chrome(options=chrome_options)
+    driver = webdriver.Chrome(options=get_options())
     driver.get(url)
     for item in students:
         student = {
