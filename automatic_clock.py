@@ -19,7 +19,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 
 url = "http://login.cuit.edu.cn/Login/xLogin/Login.asp"
-
 NewTask_XPath = "/html/body/div[2]/table/tbody[2]/tr[2]/td[2]/a"
 Work_XPath = "//*[@id='wjTA']/tbody/tr[4]/td[2]/div/select[3]"
 Health_XPath = "//*[@id='wjTA']/tbody/tr[4]/td[2]/div/select[4]"
