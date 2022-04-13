@@ -63,7 +63,6 @@ def do_send_mail(mail, content):
 
 # 登陆
 def do_login(name, password):
-    # driver.maximize_window() 将窗口最大化
     # 找到登录框 输入账号密码
     driver.implicitly_wait(20)
     driver.find_element(By.ID, 'txtId').send_keys(name)
@@ -91,7 +90,6 @@ if __name__ == '__main__':
     sql_host, sql_user, sql_password, sql_database = sys.argv[1:5]
     students = get_students(sql_host, sql_user, sql_password, sql_database)
     driver = webdriver.Chrome(options=get_options())
-    driver.get(url)
     for item in students:
         student = {
             'name': item[0],
@@ -99,6 +97,7 @@ if __name__ == '__main__':
             'password': item[2],
             'email': item[3]
         }
+        driver.get(url)
         nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         try:
             print(student['name'], end="-->")
@@ -112,10 +111,7 @@ if __name__ == '__main__':
             driver.execute_script('document.querySelector("body > div:nth-child(1) > table > tbody > tr > '
                                   'td:nth-child(2) > a").click();')
             driver.switch_to.alert.accept()
-            driver.get(url)
         except Exception as e:
             print("{}打卡失败\n错误信息: {}".format(student['name'], e))
             do_send_mail(student['email'], "{}\n{}打卡失败\n错误信息: {}".format(nowTime, student['name'], e))
-        finally:
-            driver.get(url)
     driver.quit()
